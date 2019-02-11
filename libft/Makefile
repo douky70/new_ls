@@ -6,7 +6,7 @@
 #    By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 21:42:42 by akeiflin          #+#    #+#              #
-#    Updated: 2019/02/07 09:32:26 by akeiflin         ###   ########.fr        #
+#    Updated: 2019/02/11 19:38:44 by akeiflin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ MAKELIB = ft_abs.c ft_atoi.c ft_bzero.c ft_isalnum.c \
 		  ft_lstaddnew.c ft_strfjoin.c ft_lstappendnew.c \
 		  ft_lstsort.c ft_lstlen.c ft_putstrlen.c \
 		  ft_putstrlenendl.c ft_strduplen.c ft_strljoin.c \
-		  ft_strrev.c
+		  ft_strrev.c ft_calloc.c
 
 OBJ = $(MAKELIB:.c=.o)
 
@@ -49,8 +49,7 @@ RESET		=	\033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@ls
-	printf "$(GREEN)[cc]$(RESET): done\n"
+	@printf "$(GREEN)[cc]$(RESET): done\n"
 	@printf "$(GREEN)[ld]$(RESET): $(NAME)\n"
 	@ar rcs $(NAME) $(OBJ)
 

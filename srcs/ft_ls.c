@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 21:56:46 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:34:52 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,11 @@ void	fill_dir(t_l *directory)
 	{
 		if (check_arg('a') || tmpdir->d_name[0] != '.')
 		{
-			newfile = malloc(sizeof(t_l));
+			newfile = ft_calloc(sizeof(t_l));
 			newfile->name = ft_strjoin(directory->name, "/");
 			newfile->name = ft_strljoin(newfile->name, tmpdir->d_name, FIRST);
 			subfiles = ft_lstaddnew(&subfiles, newfile, sizeof(t_l));
+			free(newfile);
 		}
 	}
 	closedir(dir);
@@ -90,6 +91,26 @@ void	fill(t_list *files)
 	}
 }
 
+void	free_files(t_list *files)
+{
+	t_list	*next;
+	t_l		*file;
+
+	while (files)
+	{
+		next = files->next;
+		file = files->content;
+		if (file->type == 1 && file->sfiles)
+			free_files(file->sfiles);
+		free(file->name);
+		if (file->acl)
+			free(file->acl);
+		free(file);
+		free(files);
+		files = next;
+	}
+}
+
 int		main(int argc, char **argv)
 {
 	t_list	*files;
@@ -109,6 +130,7 @@ int		main(int argc, char **argv)
 	files = head;
 	print_arg_files(files);
 	print_arg_dir(files);
+	free_files(files);
 	return (0);
 }
 

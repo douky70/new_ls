@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 21:44:28 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:44:36 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ char		*ft_group(gid_t st_gid)
 }
 
 //A FREE
+// Mauvaise size d'alloc ATTENTION
 
 char		*ft_perm(mode_t st_mode)
 {

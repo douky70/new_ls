@@ -6,10 +6,11 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 21:38:37 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:42:02 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "libft.h"
 #include "ft_ls.h"
 
@@ -42,6 +43,7 @@ void	print_arg_dir(t_list *files)
 	i = 0;
 	if (((t_l *)files->content)->type == 1 && ft_lstlen(files) == 1)
 	{
+		file = files->content;
 		(check_arg('l')) ? printblock(file->sfiles) : 0;
 		print_files(file->sfiles);
 		return ;
@@ -96,8 +98,8 @@ void	ft_print_one(t_l *file)
 
 void	full_file(t_l *file)
 {
-	char *str;
-
+	char	*str;
+	char	*to_free;
 	str = NULL;
 	str = ft_strljoin(str, file->acl, FIRST);
 	str = ft_strljoin(str, file->extacl, FIRST);
@@ -110,7 +112,9 @@ void	full_file(t_l *file)
 	str = ft_strljoin(str, "\t", FIRST);
 	str = ft_strljoin(str, ft_itoa(file->size), FIRST);
 	str = ft_strljoin(str, "\t", FIRST);
-	str = ft_strljoin(str, ft_lasttime(file->date), FIRST);
+	to_free = ft_lasttime(file->date);
+	str = ft_strljoin(str, to_free, FIRST);
+	free(to_free);
 	str = ft_strljoin(str, "\t", FIRST);
 	str = ft_strljoin(str, parse_name(file->name), FIRST);
 	ft_putendl(str);

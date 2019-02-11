@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 17:52:44 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 18:16:23 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:33:44 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_list			*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 /*
 ** MY FONCTIONS
 */
+void			*ft_calloc(size_t size);
 
 char			*ft_strduplen(const char *s1, size_t len);
 char			*ft_strfjoin(char *s1, char *s2);

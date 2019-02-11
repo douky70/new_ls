@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 18:17:14 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 21:39:50 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:33:14 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,17 @@ t_list	*ft_arg_file(int argc, char **argv)
 	i--;
 	while (++i < argc)
 	{
-		file = malloc(sizeof(t_l));
-		file->name = argv[i];
+		file = ft_calloc(sizeof(t_l));
+		file->name = ft_strdup(argv[i]);
 		lst = ft_lstappendnew(&lst, file, sizeof(t_l));
+		free(file);
 	}
 	if (lst == NULL)
 	{
-		file = malloc(sizeof(t_l));
+		file = ft_calloc(sizeof(t_l));
 		file->name = ft_strdup(".");
 		lst = ft_lstappendnew(&lst, file, sizeof(t_l));
+		free(file);
 	}
 	return (lst);
 }
