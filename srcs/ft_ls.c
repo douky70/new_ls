@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/11 19:34:52 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:55:30 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,7 @@ void	fill_dir(t_l *directory)
 
 	subfiles = NULL;
 	if (!(dir = opendir(directory->name)))
-	{
-		print_err(directory);
-		return ;
-	}
+		return (print_err(directory));
 	while ((tmpdir = readdir(dir)))
 	{
 		if (check_arg('a') || tmpdir->d_name[0] != '.')

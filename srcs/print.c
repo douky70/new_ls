@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/11 19:42:02 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/11 20:12:09 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,39 +98,41 @@ void	ft_print_one(t_l *file)
 
 void	full_file(t_l *file)
 {
-	char	*str;
 	char	*to_free;
-	str = NULL;
-	str = ft_strljoin(str, file->acl, FIRST);
-	str = ft_strljoin(str, file->extacl, FIRST);
-	str = ft_strljoin(str, "\t", FIRST);
-	str = ft_strljoin(str, ft_itoa(file->symlink), FIRST);
-	str = ft_strljoin(str, "\t", FIRST);
-	str = ft_strljoin(str, file->owner, FIRST);
-	str = ft_strljoin(str, "\t", FIRST);
-	str = ft_strljoin(str, file->group, FIRST);
-	str = ft_strljoin(str, "\t", FIRST);
-	str = ft_strljoin(str, ft_itoa(file->size), FIRST);
-	str = ft_strljoin(str, "\t", FIRST);
-	to_free = ft_lasttime(file->date);
-	str = ft_strljoin(str, to_free, FIRST);
+
+	ft_putstr(file->acl);
+	ft_putstr(file->extacl);
+	ft_putstr("\t");
+	to_free = ft_itoa(file->symlink);
+	ft_putstr(to_free);
 	free(to_free);
-	str = ft_strljoin(str, "\t", FIRST);
-	str = ft_strljoin(str, parse_name(file->name), FIRST);
-	ft_putendl(str);
+	ft_putstr("\t");
+	ft_putstr(file->owner);
+	ft_putstr("\t");
+	ft_putstr(file->group);
+	ft_putstr("\t");
+	to_free = ft_itoa(file->size);
+	ft_putstr(to_free);
+	free(to_free);
+	ft_putstr("\t");
+	to_free = ft_lasttime(file->date);
+	ft_putstr(to_free);
+	free(to_free);
+	ft_putstr("\t");
+	ft_putstr(parse_name(file->name));
+	ft_putchar('\n');
 }
 
 /*
 **	computiong and displaing the count of block on the folder
 */
 
-void		printblock(t_list *files)
+void	printblock(t_list *files)
 {
 	int		total;
 	t_l		*file;
 
 	total = 0;
-
 	while (files)
 	{
 		file = files->content;
