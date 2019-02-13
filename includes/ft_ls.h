@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 08:42:21 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 21:39:10 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:03:35 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int				check_arg(char c);
 
 void			fill_one(t_l *file,struct stat buff);
 void			fill(t_list *files);
-
+void			fill_dir(t_l *directory);
 void			nff1(t_l *file, char *acl, char *extacl, int symlink);
 void			nff2(t_l *file, char *owner, char *group, long size);
 void			nff3(t_l *file, time_t date, int block, int type);
@@ -71,6 +71,10 @@ void			ft_print_one(t_l *file);
 void			printblock(t_list *files);
 
 char			*parse_name(char *name);
+
+void			r_param(t_l *file);
+void			sub_folder_search_r(t_list *files);
+
 // t_list			*ft_errnonot_found(t_list *files);
 // void			ft_wrong_option(void);
 // void			ft_other_err(t_l *file);

@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/11 20:12:09 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/13 18:02:56 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,45 @@ void	print_arg_files(t_list *files)
 	}
 }
 
+void	r_param(t_l *file)
+{
+	fill_dir(file);
+	ft_putchar('\n');
+	ft_putstr(file->name);
+	ft_putendl(":");
+	(check_arg('l')) ? printblock(file->sfiles) : 0;
+	print_files(file->sfiles);
+	sub_folder_search_r(file->sfiles);
+}
+
+void	sub_folder_search_r(t_list *files)
+{
+	t_l	*file;
+
+	while (files)
+	{
+		file = files->content;
+		if (file->type == 1)
+			r_param(file);
+		files = files->next;
+	}
+}
+
 /*
 **	Printing a dir without -R
 */
 
 void	print_arg_dir(t_list *files)
 {
-	t_l	*file;
-	int	i;
+	t_l			*file;
+	static int	i = 0;
 
-	i = 0;
 	if (((t_l *)files->content)->type == 1 && ft_lstlen(files) == 1)
 	{
 		file = files->content;
 		(check_arg('l')) ? printblock(file->sfiles) : 0;
 		print_files(file->sfiles);
+		(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
 		return ;
 	}
 	while (files)
@@ -53,11 +77,13 @@ void	print_arg_dir(t_list *files)
 		file = files->content;
 		if (file->type == 1)
 		{
-			(i != 0) ? ft_putchar('\n') : 0;
+			if (i != 0)
+				ft_putchar('\n');
 			ft_putstr(file->name);
 			ft_putendl(":");
 			(check_arg('l')) ? printblock(file->sfiles) : 0;
 			print_files(file->sfiles);
+			(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
 		}
 		++i;
 		files = files->next;

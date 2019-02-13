@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/11 19:55:30 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/13 17:33:48 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ int		main(int argc, char **argv)
 
 	g_arglist = ft_parse_arg(argc, argv);
 	files = ft_arg_file(argc, argv);
+	ft_t_l_sort(files);
 	fill(files);
 	sort_files(files);
 	head = files;
@@ -132,7 +133,8 @@ int		main(int argc, char **argv)
 }
 
 //	TODO
-//	* Sorting subfolders
 //	* Recursivity
-//	*
-//	*
+//	* Symbolic link
+//	* finish -l
+//	* * finish acl
+//	* * padding
