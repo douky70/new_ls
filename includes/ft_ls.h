@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 08:42:21 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/13 18:03:35 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/13 21:58:39 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct	stat	t_stat;
 typedef	struct	s_l
 {
 	char		*name;
+	char		*symlinkname;
 	t_list		*sfiles;
 	char		*acl;
 	char		*extacl;

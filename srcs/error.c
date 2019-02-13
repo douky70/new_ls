@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:51:36 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/11 18:16:49 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/13 22:14:21 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	ft_wrong_option(void)
 void	print_err(t_l *file)
 {
 	ft_putstr_fd("ft_ls: ", 2);
-	ft_putstr_fd(file->name, 2);
+	ft_putstr_fd(parse_name(file->name), 2);
 	ft_putstr_fd(": ", 2);
 	ft_putstr_fd(strerror(errno), 2);
 	ft_putstr_fd("\n", 2);

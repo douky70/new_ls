@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/13 17:33:48 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/13 22:32:13 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include <math.h>
 #include <stdlib.h>
 #include <dirent.h>
+#include <unistd.h>
 #include "libft.h"
 #include "ft_ls.h"
 
@@ -24,6 +25,8 @@ char	*g_arglist;
 
 void	fill_one(t_l *file, struct stat buff)
 {
+	char	*symlinkname;
+
 	if (check_arg('l'))
 	{
 		nff1(file, ft_perm(buff.st_mode), ft_extattr(file->name),
@@ -32,6 +35,14 @@ void	fill_one(t_l *file, struct stat buff)
 			buff.st_size);
 		nff3(file, buff.st_mtimespec.tv_sec, buff.st_blocks,
 			S_ISDIR(buff.st_mode));
+		if (S_ISLNK(buff.st_mode))
+		{
+			if (!(symlinkname = malloc(buff.st_size + 1)))
+				exit(1);
+			readlink(file->name, symlinkname, buff.st_size + 1);
+			symlinkname[buff.st_size] = '\0';;
+			file->symlinkname = symlinkname;
+		}
 	}
 	else
 	{
@@ -76,7 +87,7 @@ void	fill(t_list *files)
 	while (files)
 	{
 		file = files->content;
-		if (stat(file->name, &buff) == 0)
+		if (lstat(file->name, &buff) == 0)
 			fill_one(file, buff);
 		else
 		{
@@ -134,7 +145,8 @@ int		main(int argc, char **argv)
 
 //	TODO
 //	* Recursivity
-//	* Symbolic link
+//	* Symbolic link ERROR N LSTAT
 //	* finish -l
 //	* * finish acl
 //	* * padding
+//	* VERIFIER MALLOC PROTECTION
