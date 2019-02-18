@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/15 09:29:58 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/18 19:40:45 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ void	fill_dir(t_l *directory)
 		if (check_arg('a') || tmpdir->d_name[0] != '.')
 		{
 			newfile = ft_calloc(sizeof(t_l));
-			newfile->name = ft_strjoin(directory->name, "/");
+			if (ft_strcmp(directory->name , "/") != 0)
+				newfile->name = ft_strjoin(directory->name, "/");
+			else
+				newfile->name = ft_strdup("/");
 			newfile->name = ft_strljoin(newfile->name, tmpdir->d_name, FIRST);
 			subfiles = ft_lstaddnew(&subfiles, newfile, sizeof(t_l));
 			free(newfile);
@@ -144,9 +147,9 @@ int		main(int argc, char **argv)
 }
 
 //	TODO
-//	* Recursivity
-//	* Symbolic link ERROR N LSTAT
+//	* Symbolic link ERROR N LSTAT (Si il existe pas)
 //	* finish -l
-//	* * finish acl
 //	* * padding
+//	* * Mauvaise date
 //	* VERIFIER MALLOC PROTECTION
+//	* DIFF ls -Rrat pas au point

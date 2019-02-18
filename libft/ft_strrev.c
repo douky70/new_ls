@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:12:25 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/01/31 17:48:23 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/18 18:39:52 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,17 @@
 
 char	*ft_strrev(char *str)
 {
-	size_t	len;
-	size_t	i;
+	long long	len;
+	long long	i;
 	char	*res;
 
 	if (!str)
 		return (NULL);
 	i = 0;
 	len = ft_strlen(str);
-	res = malloc(sizeof(char) * (len + 1));
-	while (--len != 0)
+	if (!(res = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	while (--len > 0)
 	{
 		res[i] = str[len];
 		i++;

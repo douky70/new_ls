@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 08:42:21 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/13 21:58:39 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/18 19:18:35 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void			ft_print_one(t_l *file);
 void			printblock(t_list *files);
 
 char			*parse_name(char *name);
-
+char			*first_parse_name(char *name);
 void			r_param(t_l *file);
 void			sub_folder_search_r(t_list *files);
 

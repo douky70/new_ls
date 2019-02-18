@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/15 12:16:48 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/18 19:35:41 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ char		*ft_group(gid_t st_gid)
 }
 
 //A FREE
-// Mauvaise size d'alloc ATTENTION
 
 char		*ft_set_type(mode_t st_mode)
 {
@@ -101,6 +100,54 @@ char		*ft_set_type(mode_t st_mode)
 	return (str);
 }
 
+char		*sticky_group(mode_t st_mode, char *str)
+{
+	if (st_mode & S_ISGID) // GRP sSx
+	{
+		if (st_mode & S_IXGRP)
+			str = ft_strljoin(str, "s", FIRST);
+		else
+			str = ft_strljoin(str, "S", FIRST);
+	}
+	else if (st_mode & S_IXGRP)
+		str = ft_strljoin(str, "x", FIRST);
+	else
+		str = ft_strljoin(str, "-", FIRST);
+	return (str);
+}
+
+char		*sticky_user(mode_t st_mode, char *str)
+{
+	if (st_mode & S_ISUID) // USER sSx
+	{
+		if (st_mode & S_IXUSR)
+			str = ft_strljoin(str, "s", FIRST);
+		else
+			str = ft_strljoin(str, "S", FIRST);
+	}
+	else if (st_mode & S_IXUSR)
+		str = ft_strljoin(str, "x", FIRST);
+	else
+		str = ft_strljoin(str, "-", FIRST);
+	return (str);
+}
+
+char		*sticky_other(mode_t st_mode, char *str)
+{
+	if (st_mode & S_ISVTX) // OTHER tTx
+	{
+		if (st_mode & S_IXOTH)
+			str = ft_strljoin(str, "t", FIRST);
+		else
+			str = ft_strljoin(str, "T", FIRST);
+	}
+	else if (st_mode & S_IXOTH)
+		str = ft_strljoin(str, "x", FIRST);
+	else
+		str = ft_strljoin(str, "-", FIRST);
+	return (str);
+}
+
 char		*ft_perm(mode_t st_mode)
 {
 	char	*str;
@@ -109,17 +156,15 @@ char		*ft_perm(mode_t st_mode)
 	str = ft_set_type(st_mode);
 	str = ft_strljoin(str, ((st_mode & S_IRUSR) ? "r" : "-"), FIRST);
 	str = ft_strljoin(str, ((st_mode & S_IWUSR) ? "w" : "-"), FIRST);
-	str = ft_strljoin(str, ((st_mode & S_IXUSR) ? "x" : "-"), FIRST);
+	str = sticky_user(st_mode, str);
 	str = ft_strljoin(str, ((st_mode & S_IRGRP) ? "r" : "-"), FIRST);
 	str = ft_strljoin(str, ((st_mode & S_IWGRP) ? "w" : "-"), FIRST);
-	str = ft_strljoin(str, ((st_mode & S_IXGRP) ? "x" : "-"), FIRST);
+	str = sticky_group(st_mode, str);
 	str = ft_strljoin(str, ((st_mode & S_IROTH) ? "r" : "-"), FIRST);
 	str = ft_strljoin(str, ((st_mode & S_IWOTH) ? "w" : "-"), FIRST);
-	str = ft_strljoin(str, ((st_mode & S_IXOTH) ? "x" : "-"), FIRST);
+	str = sticky_other(st_mode, str);
 	return (str);
 }
-
-// A refaire et comprendre
 
 char		*ft_extattr(char *name)
 {

@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/15 09:23:48 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/18 19:36:39 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	sub_folder_search_r(t_list *files)
 	while (files)
 	{
 		file = files->content;
-		if (file->type == 1 && !file->symlinkname)
+		if (file->type == 1 && !file->symlinkname && ft_strcmp(parse_name(file->name), ".") != 0 && ft_strcmp(parse_name(file->name), "..") != 0)
 			r_param(file);
 		files = files->next;
 	}
