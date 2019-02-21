@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/18 19:36:39 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:27:29 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,12 @@ void	ft_print_one(t_l *file)
 		ft_putendl(parse_name(file->name));
 }
 
+void	put_space(int i)
+{
+	while (--i >= 0)
+		ft_putchar(' ');
+}
+
 /*
 **	display a file line with -l
 */
@@ -128,23 +134,23 @@ void	full_file(t_l *file)
 
 	ft_putstr(file->acl);
 	ft_putstr(file->extacl);
-	ft_putstr("\t");
+	put_space(file->padding[0]);
 	to_free = ft_itoa(file->symlink);
 	ft_putstr(to_free);
 	free(to_free);
-	ft_putstr("\t");
+	put_space(file->padding[1]);
 	ft_putstr(file->owner);
-	ft_putstr("\t");
+	put_space(file->padding[2]);
 	ft_putstr(file->group);
-	ft_putstr("\t");
+	put_space(file->padding[3]);
 	to_free = ft_itoa(file->size);
 	ft_putstr(to_free);
 	free(to_free);
-	ft_putstr("\t");
+	put_space(1);
 	to_free = ft_lasttime(file->date);
 	ft_putstr(to_free);
 	free(to_free);
-	ft_putstr("\t");
+	put_space(1);
 	ft_putstr(parse_name(file->name));
 	if (file->symlinkname)
 	{

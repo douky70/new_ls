@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/18 19:40:45 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:32:09 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	fill_dir(t_l *directory)
 	}
 	closedir(dir);
 	fill(subfiles);
+	(check_arg('l')) ? fill_padding(subfiles, 0) : 0;
 	sort_files(subfiles);
 	directory->sfiles = subfiles;
 }
@@ -114,11 +115,48 @@ void	free_files(t_list *files)
 		if (file->type == 1 && file->sfiles)
 			free_files(file->sfiles);
 		free(file->name);
-		if (file->acl)
+		if (check_arg('l'))
+		{
 			free(file->acl);
+			free(file->owner);
+			free(file->group);
+		}
 		free(file);
 		free(files);
 		files = next;
+	}
+}
+
+void	fill_padding(t_list *files, int skipfolders)
+{
+	t_l 	*file;
+	t_list	*head;
+	int		max[4];
+	int		tmp;
+
+	ft_bzero(max, sizeof(int) * 4);
+	head = files;
+	while (files)
+	{
+		file = files->content;
+		if (!skipfolders || file->type == 0)
+		{
+			(max[0] < (tmp = ft_nbrlen(file->symlink))) ? max[0] = tmp : 0;
+			(max[1] < (tmp = ft_strlen(file->owner))) ? max[1] = tmp : 0;
+			(max[2] < (tmp = ft_strlen(file->group))) ? max[2] = tmp : 0;
+			(max[3] < (tmp = ft_nbrlen(file->size))) ? max[3] = tmp : 0;
+		}
+		files = files->next;
+	}
+	files = head;
+	while (files)
+	{
+		file = files->content;
+		file->padding[0] = max[0] - ft_nbrlen(file->symlink) - ft_strlen(file->extacl) + 2;
+		file->padding[1] = max[1] - ft_strlen(file->owner) + 1;
+		file->padding[2] = max[2] - ft_strlen(file->group) + 2;
+		file->padding[3] = max[3] - ft_nbrlen(file->size) + 2;
+		files = files->next;
 	}
 }
 
@@ -131,6 +169,7 @@ int		main(int argc, char **argv)
 	files = ft_arg_file(argc, argv);
 	ft_t_l_sort(files);
 	fill(files);
+	(check_arg('l')) ? fill_padding(files, 1) : 0;
 	sort_files(files);
 	head = files;
 	while (files)
@@ -148,8 +187,6 @@ int		main(int argc, char **argv)
 
 //	TODO
 //	* Symbolic link ERROR N LSTAT (Si il existe pas)
-//	* finish -l
-//	* * padding
-//	* * Mauvaise date
+//	* date fr/en???
 //	* VERIFIER MALLOC PROTECTION
-//	* DIFF ls -Rrat pas au point
+//	* DIFF ls -t pas au point (Fichier cree en mm temps)

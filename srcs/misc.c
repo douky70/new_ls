@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:08:02 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/18 19:22:39 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/20 16:27:01 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,14 @@ char	*first_parse_name(char *name)
 	res = ft_strrev(&(rev[i]));
 	free(rev);
 	return (res);
+}
+
+int		ft_nbrlen(unsigned long long n)
+{
+	if (n == 0)
+		return (1);
+	else if (n / 10 > 0)
+		return (1 + ft_nbrlen(n / 10));
+	else
+		return (1);
 }

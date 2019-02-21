@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/18 19:35:41 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/20 17:31:20 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,32 +24,52 @@
 
 char		*ft_lasttime(time_t filetime)
 {
-	char		*str;
+	char		**str;
+	char		*res;
 	time_t		mytime;
 	char		*texttime;
-	int			len;
 
+	res = NULL;
 	texttime = ctime(&filetime);
 	time(&mytime);
-	if (mytime - filetime < 15724800)
+	str = ft_strsplit(texttime, ' ');
+	if (mytime - filetime > 15724800 || mytime < filetime)
 	{
-		str = ft_strdup(texttime + 4);
-		str[12] = 0;
+		str[4][4] = '\0';
+		if (ft_strlen(str[2]) == 1)
+			res = ft_strljoin(res, "  ", NONE);
+		else
+			res = ft_strljoin(res, " ", NONE);
+		res = ft_strljoin(res, str[2], BOTH);
+		res = ft_strljoin(res, " ", FIRST);
+		res = ft_strljoin(res, str[1], BOTH);
+		res = ft_strljoin(res, "  ", FIRST);
+		res = ft_strljoin(res, str[4], BOTH);
+		free(str[0]);
+		free(str[3]);
+		return (res);
 	}
 	else
 	{
-		str = ft_strdup(texttime + 4);
-		len = ft_strlen(str);
-		str[12] = ' ';
-		str[13] = str[len - 5];
-		str[14] = str[len - 4];
-		str[15] = str[len - 3];
-		str[16] = str[len - 2];
-		str[17] = 0;
+		str[3][5] = '\0';
+		if (ft_strlen(str[2]) == 1)
+			res = ft_strljoin(res, "  ", NONE);
+		else
+			res = ft_strljoin(res, " ", NONE);
+		res = ft_strljoin(res, str[2], BOTH);
+		res = ft_strljoin(res, " ", FIRST);
+		res = ft_strljoin(res, str[1], BOTH);
+		res = ft_strljoin(res, " ", FIRST);
+		res = ft_strljoin(res, str[3], BOTH);
+		free(str[0]);
+		free(str[4]);
+		return (res);
 	}
-	return (str);
+
+	return (res);
 }
 
+//A FREE
 char		*ft_owner(uid_t st_uid)
 {
 	struct passwd	*pwd;
@@ -57,12 +77,13 @@ char		*ft_owner(uid_t st_uid)
 
 	pwd = getpwuid(st_uid);
 	if (pwd)
-		id = pwd->pw_name;
+		id = ft_strdup(pwd->pw_name);
 	else
 		id = ft_itoa(st_uid);
 	return (id);
 }
 
+//A FREE
 char		*ft_group(gid_t st_gid)
 {
 	struct group	*gr;
@@ -70,10 +91,10 @@ char		*ft_group(gid_t st_gid)
 
 	gr = getgrgid(st_gid);
 	if (gr)
-		id = gr->gr_name;
+		id = ft_strdup(gr->gr_name);
 	else
 		id = ft_itoa(st_gid);
-	return (gr->gr_name);
+	return (id);
 }
 
 //A FREE

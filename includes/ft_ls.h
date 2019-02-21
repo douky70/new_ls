@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 08:42:21 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/18 19:18:35 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:05:31 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef	struct	s_l
 	int			block;
 	int			error;
 	int			type;
+	int			padding[4];
 }				t_l;
 
 void			ft_wrong_option(void);
@@ -47,6 +48,7 @@ int				check_arg(char c);
 void			fill_one(t_l *file,struct stat buff);
 void			fill(t_list *files);
 void			fill_dir(t_l *directory);
+void			fill_padding(t_list *files, int skipfolders);
 void			nff1(t_l *file, char *acl, char *extacl, int symlink);
 void			nff2(t_l *file, char *owner, char *group, long size);
 void			nff3(t_l *file, time_t date, int block, int type);
@@ -73,6 +75,7 @@ void			printblock(t_list *files);
 
 char			*parse_name(char *name);
 char			*first_parse_name(char *name);
+int				ft_nbrlen(unsigned long long n);
 void			r_param(t_l *file);
 void			sub_folder_search_r(t_list *files);
 
