@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/20 16:27:29 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:06:12 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	print_arg_files(t_list *files)
 	{
 		file = files->content;
 		if (file->error == 0 && file->type == 0)
+		{
+			file->fullname = 1;
 			ft_print_one(file);
+		}
 		files = files->next;
 	}
 }
@@ -114,8 +117,10 @@ void	ft_print_one(t_l *file)
 {
 	if (check_arg('l'))
 		full_file(file);
-	else
+	else if (file->fullname == 0)
 		ft_putendl(parse_name(file->name));
+	else if (file->fullname == 1)
+		ft_putendl(file->name);
 }
 
 void	put_space(int i)
@@ -138,20 +143,20 @@ void	full_file(t_l *file)
 	to_free = ft_itoa(file->symlink);
 	ft_putstr(to_free);
 	free(to_free);
-	put_space(file->padding[1]);
-	ft_putstr(file->owner);
-	put_space(file->padding[2]);
-	ft_putstr(file->group);
-	put_space(file->padding[3]);
-	to_free = ft_itoa(file->size);
-	ft_putstr(to_free);
-	free(to_free);
 	put_space(1);
+	ft_putstr(file->owner);
+	put_space(file->padding[1]);
+	ft_putstr(file->group);
+	put_space(file->padding[2]);
+	ft_putstr(file->size);
 	to_free = ft_lasttime(file->date);
 	ft_putstr(to_free);
 	free(to_free);
 	put_space(1);
-	ft_putstr(parse_name(file->name));
+	if (file->fullname == 0)
+		ft_putstr(parse_name(file->name));
+	else
+		ft_putstr(file->name);
 	if (file->symlinkname)
 	{
 		ft_putstr(" -> ");

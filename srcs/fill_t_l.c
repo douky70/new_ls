@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:04:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/09 21:21:04 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:35:55 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	nff1(t_l *file, char *acl, char *extacl, int symlink)
 	file->symlink = symlink;
 }
 
-void	nff2(t_l *file, char *owner, char *group, long size)
+void	nff2(t_l *file, char *owner, char *group, char *size)
 {
 	file->owner = owner;
 	file->group = group;

@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/20 17:32:09 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/21 16:48:10 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,56 @@
 #include <unistd.h>
 #include "libft.h"
 #include "ft_ls.h"
+#include <sys/types.h>
 
 char	*g_arglist;
+
+char	*add_device_padding(int nbr)
+{
+	int		nb;
+	char	*res;
+
+	nb = 4 - ft_nbrlen(nbr);
+	res = ft_strnew(nb);
+	while  (--nb >= 0)
+		res[nb] = ' ';
+	return (res); // 1 de trop sur le major
+}
+
+char	*device(dev_t st_rdev)
+{
+	int		major;
+	int		minor;
+	char	*res;
+
+	major = 0;
+	minor = 0;
+	major = major(st_rdev);
+	minor = minor(st_rdev);
+	res = NULL;
+	res = ft_strljoin(res, add_device_padding(major), SECOND);
+	res = ft_strljoin(res, ft_itoa(major), BOTH);
+	res = ft_strljoin(res, ",", FIRST);
+	res = ft_strljoin(res, add_device_padding(minor), BOTH);
+	res = ft_strljoin(res, ft_itoa(minor), BOTH);
+	return (res);
+}
 
 void	fill_one(t_l *file, struct stat buff)
 {
 	char	*symlinkname;
+	char	*size;
 
 	if (check_arg('l'))
 	{
+		if (!S_ISLNK(buff.st_mode) && !S_ISDIR(buff.st_mode) && !S_ISREG(buff.st_mode))
+			size = device(buff.st_rdev);
+		else
+			size = ft_itoa(buff.st_size);
 		nff1(file, ft_perm(buff.st_mode), ft_extattr(file->name),
 			buff.st_nlink);
 		nff2(file, ft_owner(buff.st_uid), ft_group(buff.st_gid),
-			buff.st_size);
+			size);
 		nff3(file, buff.st_mtimespec.tv_sec, buff.st_blocks,
 			S_ISDIR(buff.st_mode));
 		if (S_ISLNK(buff.st_mode))
@@ -120,6 +157,7 @@ void	free_files(t_list *files)
 			free(file->acl);
 			free(file->owner);
 			free(file->group);
+			free(file->size);
 		}
 		free(file);
 		free(files);
@@ -144,7 +182,7 @@ void	fill_padding(t_list *files, int skipfolders)
 			(max[0] < (tmp = ft_nbrlen(file->symlink))) ? max[0] = tmp : 0;
 			(max[1] < (tmp = ft_strlen(file->owner))) ? max[1] = tmp : 0;
 			(max[2] < (tmp = ft_strlen(file->group))) ? max[2] = tmp : 0;
-			(max[3] < (tmp = ft_nbrlen(file->size))) ? max[3] = tmp : 0;
+			(max[3] < (tmp = ft_strlen(file->size))) ? max[3] = tmp : 0;
 		}
 		files = files->next;
 	}
@@ -153,9 +191,8 @@ void	fill_padding(t_list *files, int skipfolders)
 	{
 		file = files->content;
 		file->padding[0] = max[0] - ft_nbrlen(file->symlink) - ft_strlen(file->extacl) + 2;
-		file->padding[1] = max[1] - ft_strlen(file->owner) + 1;
-		file->padding[2] = max[2] - ft_strlen(file->group) + 2;
-		file->padding[3] = max[3] - ft_nbrlen(file->size) + 2;
+		file->padding[1] = max[1] - ft_strlen(file->owner) + 2;
+		file->padding[2] = (max[2] - ft_strlen(file->group)) + (max[3] - ft_strlen(file->size)) + 2;
 		files = files->next;
 	}
 }
@@ -187,6 +224,8 @@ int		main(int argc, char **argv)
 
 //	TODO
 //	* Symbolic link ERROR N LSTAT (Si il existe pas)
+//	* Dissplay symlink (/dev/stderr ????)
 //	* date fr/en???
 //	* VERIFIER MALLOC PROTECTION
 //	* DIFF ls -t pas au point (Fichier cree en mm temps)
+//	* majeur padding
