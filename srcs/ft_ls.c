@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 17:17:04 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 19:12:12 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	fill_one(t_l *file, struct stat buff)
 
 	if (check_arg('l'))
 	{
-		if (!S_ISLNK(buff.st_mode) && !S_ISDIR(buff.st_mode) && !S_ISREG(buff.st_mode))
+		if (S_ISBLK(buff.st_mode) || S_ISCHR(buff.st_mode))
 			size = device(buff.st_rdev);
 		else
 			size = ft_itoa(buff.st_size);
@@ -231,4 +231,3 @@ int		main(int argc, char **argv)
 //	TODO
 //	* VERIFIER MALLOC PROTECTION
 //	* DIFF ls -t pas au point (Fichier cree en mm temps)
-//	* majeur padding

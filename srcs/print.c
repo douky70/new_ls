@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 17:24:14 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 17:53:36 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	r_param(t_l *file)
 	ft_putchar('\n');
 	ft_putstr(file->name);
 	ft_putendl(":");
-	(check_arg('l')) ? printblock(file->sfiles) : 0;
+	(check_arg('l') && file->sfiles) ? printblock(file->sfiles) : 0;
 	print_files(file->sfiles);
 	sub_folder_search_r(file->sfiles);
 }
@@ -70,7 +70,7 @@ void	print_arg_dir(t_list *files)
 	if (((t_l *)files->content)->type == 1 && ft_lstlen(files) == 1)
 	{
 		file = files->content;
-		(check_arg('l')) ? printblock(file->sfiles) : 0;
+		(check_arg('l') && file->sfiles) ? printblock(file->sfiles) : 0;
 		print_files(file->sfiles);
 		(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
 		return ;
@@ -84,7 +84,7 @@ void	print_arg_dir(t_list *files)
 				ft_putchar('\n');
 			ft_putstr(file->name);
 			ft_putendl(":");
-			(check_arg('l')) ? printblock(file->sfiles) : 0;
+			(check_arg('l') && file->sfiles) ? printblock(file->sfiles) : 0;
 			print_files(file->sfiles);
 			(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
 		}

@@ -30,12 +30,12 @@ all: libft $(NAME)
 $(NAME): $(OBJ)
 	@printf "$(GREEN)[cc]$(RESET): done\n"
 	@printf "$(GREEN)[ld]$(RESET): $(NAME)\n"
-	@$(CXX) -g -o $(NAME) $(OBJ) $(LIB_FOLDERS) $(LIBS) $(LDFLAGS) $(INCLUDES)
+	@$(CXX) -o $(NAME) $(OBJ) $(LIB_FOLDERS) $(LIBS) $(LDFLAGS) $(INCLUDES)
 
 .c.o: $(SRC)
 	@printf "$(GREEN)[cc]$(RESET): $< -> $@\n"
 	@printf "\e[1A"
-	@gcc -g -c $< -o $@ $(INCLUDES) $(CFLAGS)
+	@gcc -c $< -o $@ $(INCLUDES) $(CFLAGS)
 	@printf "\e[0K"
 
 run: all

@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: akeiflin <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 08:43:40 by akeiflin          #+#    #+#             */
-/*   Updated: 2018/11/16 01:06:24 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 18:26:52 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdlib.h>
 
-char	*ft_itoa(int n)
+char	*ft_itoa(long long n)
 {
-	int		numlen;
+	long long		numlen;
 	int		positive;
 	char	*str;
-	long	num;
+	long long	num;
 
 	numlen = ft_numlen(n);
 	positive = ft_ispositive(n);

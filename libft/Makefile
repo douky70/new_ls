@@ -6,7 +6,7 @@
 #    By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 21:42:42 by akeiflin          #+#    #+#              #
-#    Updated: 2019/02/11 19:38:44 by akeiflin         ###   ########.fr        #
+#    Updated: 2019/02/23 18:50:29 by akeiflin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,7 @@ $(NAME): $(OBJ)
 .c.o: $(SRC)
 	@printf "$(GREEN)[cc]$(RESET): $< -> $@\n"
 	@printf "\e[1A"
-	@gcc -g -c $< -o $@ -I $(INCLUDES) $(FLAGS)
+	@gcc -c $< -o $@ -I $(INCLUDES) $(FLAGS)
 	@printf "\e[0K"
 
 clean:
