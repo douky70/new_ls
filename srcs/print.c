@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/21 16:06:12 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 17:24:14 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,15 @@ void	print_files(t_list *files)
 
 void	ft_print_one(t_l *file)
 {
-	if (check_arg('l'))
-		full_file(file);
-	else if (file->fullname == 0)
-		ft_putendl(parse_name(file->name));
-	else if (file->fullname == 1)
-		ft_putendl(file->name);
+	if (file->error == 0)
+	{
+		if (check_arg('l'))
+			full_file(file);
+		else if (file->fullname == 0)
+			ft_putendl(parse_name(file->name));
+		else if (file->fullname == 1)
+			ft_putendl(file->name);
+	}
 }
 
 void	put_space(int i)
