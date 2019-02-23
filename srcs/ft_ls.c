@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 21:39:20 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 22:30:44 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,4 +232,4 @@ int		main(int argc, char **argv)
 
 //	TODO
 //	* VERIFIER MALLOC PROTECTION
-//	* Probleme des /Application// (les deux //)
+// apprendre a setgid pour les test

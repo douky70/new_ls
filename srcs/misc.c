@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 21:08:02 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/20 16:27:01 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 22:28:36 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*parse_name(char *name)
 	res = ft_strrev(name);
 	while (res[i + 1])
 	{
-		if (res[i] == '/' && res[i + 1] != '/')
+		if (res[i] == '/' && res[i + 1] != '\\')
 			break ;
 		i++;
 	}
@@ -43,23 +43,6 @@ char	*parse_name(char *name)
 		i = len - i;
 	free(res);
 	return (&(name[i]));
-}
-
-char	*first_parse_name(char *name)
-{
-	char		*rev;
-	char		*res;
-	long long	i;
-
-	i = 0;
-	if (ft_strcmp(name, "/") == 0)
-		return (ft_strdup("/"));
-	rev = ft_strrev(name);
-	while (rev[i] == '/')
-		i++;
-	res = ft_strrev(&(rev[i]));
-	free(rev);
-	return (res);
 }
 
 int		ft_nbrlen(unsigned long long n)

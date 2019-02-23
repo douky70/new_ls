@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 21:38:31 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 22:29:16 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 #include <sys/acl.h>
 #include <sys/xattr.h>
 #include "libft.h"
-
-//A FREE
 
 char		*ft_lasttime(time_t filetime)
 {
@@ -73,7 +71,6 @@ char		*ft_lasttime(time_t filetime)
 	return (res);
 }
 
-//A FREE
 char		*ft_owner(uid_t st_uid)
 {
 	struct passwd	*pwd;
@@ -87,7 +84,6 @@ char		*ft_owner(uid_t st_uid)
 	return (id);
 }
 
-//A FREE
 char		*ft_group(gid_t st_gid)
 {
 	struct group	*gr;
@@ -100,8 +96,6 @@ char		*ft_group(gid_t st_gid)
 		id = ft_itoa(st_gid);
 	return (id);
 }
-
-//A FREE
 
 char		*ft_set_type(mode_t st_mode)
 {
