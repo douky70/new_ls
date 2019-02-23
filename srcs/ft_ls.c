@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 19:12:12 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 21:39:20 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,6 +158,8 @@ void	free_files(t_list *files)
 		if (file->type == 1 && file->sfiles)
 			free_files(file->sfiles);
 		free(file->name);
+		if (file->symlinkname)
+			free(file->symlinkname);
 		if (check_arg('l'))
 		{
 			free(file->acl);
@@ -230,4 +232,4 @@ int		main(int argc, char **argv)
 
 //	TODO
 //	* VERIFIER MALLOC PROTECTION
-//	* DIFF ls -t pas au point (Fichier cree en mm temps)
+//	* Probleme des /Application// (les deux //)

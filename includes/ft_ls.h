@@ -6,20 +6,22 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/12/10 08:42:21 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 17:13:10 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 21:56:40 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
-# define AVAILABLE_ARG "lRart"
-# ifndef MAXNAMLEN
-#  define MAXNAMLEN 255
-# endif
+
 # include <sys/stat.h>
 # include <stdbool.h>
 # include <string.h>
 # include "libft.h"
+
+# define AVAILABLE_ARG "lRart"
+# ifndef MAXNAMLEN
+#  define MAXNAMLEN 255
+# endif
 
 typedef struct	stat	t_stat;
 typedef	struct	s_l

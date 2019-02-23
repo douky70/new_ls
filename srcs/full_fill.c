@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/20 17:31:20 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/02/23 21:38:31 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ char		*ft_lasttime(time_t filetime)
 		res = ft_strljoin(res, str[4], BOTH);
 		free(str[0]);
 		free(str[3]);
+		free(str[5]);
+		free(str);
 		return (res);
 	}
 	else
@@ -63,6 +65,8 @@ char		*ft_lasttime(time_t filetime)
 		res = ft_strljoin(res, str[3], BOTH);
 		free(str[0]);
 		free(str[4]);
+		free(str[5]);
+		free(str);
 		return (res);
 	}
 
