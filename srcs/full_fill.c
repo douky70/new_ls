@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 22:29:16 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/01 08:34:23 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,11 @@
 #include <sys/acl.h>
 #include <sys/xattr.h>
 #include "libft.h"
+
+/*
+**	calc the last use date for a file with the time_t
+**	Return a malloced string with the last use date
+*/
 
 char		*ft_lasttime(time_t filetime)
 {
@@ -71,6 +76,10 @@ char		*ft_lasttime(time_t filetime)
 	return (res);
 }
 
+/*
+**	Return a malloced string with the owner name
+*/
+
 char		*ft_owner(uid_t st_uid)
 {
 	struct passwd	*pwd;
@@ -84,6 +93,10 @@ char		*ft_owner(uid_t st_uid)
 	return (id);
 }
 
+/*
+**	Return a malloced string with the group name
+*/
+
 char		*ft_group(gid_t st_gid)
 {
 	struct group	*gr;
@@ -96,6 +109,10 @@ char		*ft_group(gid_t st_gid)
 		id = ft_itoa(st_gid);
 	return (id);
 }
+
+/*
+**	Return the first ACL caracter malloced
+*/
 
 char		*ft_set_type(mode_t st_mode)
 {
@@ -119,6 +136,10 @@ char		*ft_set_type(mode_t st_mode)
 	return (str);
 }
 
+/*
+**	Return a malloced string with the sticky bit on group
+*/
+
 char		*sticky_group(mode_t st_mode, char *str)
 {
 	if (st_mode & S_ISGID) // GRP sSx
@@ -134,6 +155,10 @@ char		*sticky_group(mode_t st_mode, char *str)
 		str = ft_strljoin(str, "-", FIRST);
 	return (str);
 }
+
+/*
+**	Return a malloced string with the sticky bit on user
+*/
 
 char		*sticky_user(mode_t st_mode, char *str)
 {
@@ -151,6 +176,10 @@ char		*sticky_user(mode_t st_mode, char *str)
 	return (str);
 }
 
+/*
+**	Return a malloced string with the sticky bit on other
+*/
+
 char		*sticky_other(mode_t st_mode, char *str)
 {
 	if (st_mode & S_ISVTX) // OTHER tTx
@@ -166,6 +195,10 @@ char		*sticky_other(mode_t st_mode, char *str)
 		str = ft_strljoin(str, "-", FIRST);
 	return (str);
 }
+
+/*
+**	Return the mallocde ACL
+*/
 
 char		*ft_perm(mode_t st_mode)
 {
@@ -184,6 +217,10 @@ char		*ft_perm(mode_t st_mode)
 	str = sticky_other(st_mode, str);
 	return (str);
 }
+
+/*
+**	Add the extented ACL
+*/
 
 char		*ft_extattr(char *name)
 {

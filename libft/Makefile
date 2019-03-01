@@ -6,7 +6,7 @@
 #    By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/08 21:42:42 by akeiflin          #+#    #+#              #
-#    Updated: 2019/02/23 18:50:29 by akeiflin         ###   ########.fr        #
+#    Updated: 2019/03/01 07:49:50 by akeiflin         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,4 +69,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean $(NAME)
+.PHONY: all clean fclean

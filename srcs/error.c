@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:51:36 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/13 22:14:21 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/01 08:15:48 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,20 @@
 #include "ft_ls.h"
 #include "libft.h"
 
+/*
+**	Display the option error and exit
+*/
+
 void	ft_wrong_option(void)
 {
 	ft_putstr_fd("ft_ls: illegal option\nusage: ./ft_ls [-lRrat] [file ...]\n",
 	2);
 	exit(1);
 }
+
+/*
+**	Display an error for a t_l
+*/
 
 void	print_err(t_l *file)
 {

@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 17:53:36 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/01 08:44:42 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ void	print_arg_files(t_list *files)
 	}
 }
 
+/*
+**	Fill a folder and print it for finaly check for another su folder
+*/
+
 void	r_param(t_l *file)
 {
 	fill_dir(file);
@@ -44,6 +48,10 @@ void	r_param(t_l *file)
 	print_files(file->sfiles);
 	sub_folder_search_r(file->sfiles);
 }
+
+/*
+**	Look for subfolder
+*/
 
 void	sub_folder_search_r(t_list *files)
 {
@@ -125,6 +133,10 @@ void	ft_print_one(t_l *file)
 			ft_putendl(file->name);
 	}
 }
+
+/*
+**	print i spaces
+*/
 
 void	put_space(int i)
 {

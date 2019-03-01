@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 17:45:58 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 22:30:44 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/01 08:03:37 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,11 @@
 
 char	*g_arglist;
 
+/*
+**	fill the padding between the major and the minor
+**	Return a malloced string filled with space
+*/
+
 char	*add_device_padding(int nbr, int majmin)
 {
 	int		nb;
@@ -39,6 +44,11 @@ char	*add_device_padding(int nbr, int majmin)
 		res[nb] = ' ';
 	return (res);
 }
+
+/*
+**	Fill the minor & major
+**	Return a malloced string with major and minor
+*/
 
 char	*device(dev_t st_rdev)
 {
@@ -58,6 +68,10 @@ char	*device(dev_t st_rdev)
 	res = ft_strljoin(res, ft_itoa(minor), BOTH);
 	return (res);
 }
+
+/*
+**	Full fill one t_l
+*/
 
 void	fill_one(t_l *file, struct stat buff)
 {
@@ -95,6 +109,10 @@ void	fill_one(t_l *file, struct stat buff)
 	}
 }
 
+/*
+**	Read ad fill a DIR
+*/
+
 void	fill_dir(t_l *directory)
 {
 	DIR				*dir;
@@ -126,6 +144,10 @@ void	fill_dir(t_l *directory)
 	directory->sfiles = subfiles;
 }
 
+/*
+**	Fill a t_l list
+*/
+
 void	fill(t_list *files)
 {
 	struct stat	buff;
@@ -145,6 +167,10 @@ void	fill(t_list *files)
 		files = files->next;
 	}
 }
+
+/*
+**	Free all my files
+*/
 
 void	free_files(t_list *files)
 {
@@ -172,6 +198,10 @@ void	free_files(t_list *files)
 		files = next;
 	}
 }
+
+/*
+**	Fillthe padding in each t_l in arg
+*/
 
 void	fill_padding(t_list *files, int skipfolders)
 {
