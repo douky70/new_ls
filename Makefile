@@ -1,14 +1,16 @@
 NAME			=	ft_ls
 
 # Sources
-SRC				=	srcs/sorting.c \
+SRC				=	srcs/fill.c \
+					srcs/device.c \
+					srcs/sorting.c srcs/sorting2.c \
 					srcs/arg.c \
 					srcs/error.c \
 					srcs/fill_t_l.c \
 					srcs/ft_ls.c \
-					srcs/full_fill.c \
+					srcs/full_fill.c srcs/full_fill2.c \
 					srcs/misc.c \
-					srcs/print.c
+					srcs/print.c srcs/print2.c srcs/print3.c
 
 LIBFT_FOLDER	=	libft
 LIB_FOLDERS		=	-L$(LIBFT_FOLDER)

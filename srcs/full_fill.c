@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/01 08:34:23 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/02 16:44:47 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,24 @@
 #include <sys/acl.h>
 #include <sys/xattr.h>
 #include "libft.h"
+
+char		*ft_lasttime_sub(char *res, char **str, int spe)
+{
+	if (ft_strlen(str[2]) == 1)
+		res = ft_strljoin(res, "  ", NONE);
+	else
+		res = ft_strljoin(res, " ", NONE);
+	res = ft_strljoin(res, str[2], BOTH);
+	res = ft_strljoin(res, " ", FIRST);
+	res = ft_strljoin(res, str[1], BOTH);
+	res = ft_strljoin(res, "  ", FIRST);
+	res = ft_strljoin(res, str[spe], BOTH);
+	free(str[0]);
+	free(str[((spe == 4) ? 3 : 4)]);
+	free(str[5]);
+	free(str);
+	return (res);
+}
 
 /*
 **	calc the last use date for a file with the time_t
@@ -39,40 +57,15 @@ char		*ft_lasttime(time_t filetime)
 	if (mytime - filetime > 15724800 || mytime < filetime)
 	{
 		str[4][4] = '\0';
-		if (ft_strlen(str[2]) == 1)
-			res = ft_strljoin(res, "  ", NONE);
-		else
-			res = ft_strljoin(res, " ", NONE);
-		res = ft_strljoin(res, str[2], BOTH);
-		res = ft_strljoin(res, " ", FIRST);
-		res = ft_strljoin(res, str[1], BOTH);
-		res = ft_strljoin(res, "  ", FIRST);
-		res = ft_strljoin(res, str[4], BOTH);
-		free(str[0]);
-		free(str[3]);
-		free(str[5]);
-		free(str);
+		res = ft_lasttime_sub(res, str, 4);
 		return (res);
 	}
 	else
 	{
 		str[3][5] = '\0';
-		if (ft_strlen(str[2]) == 1)
-			res = ft_strljoin(res, "  ", NONE);
-		else
-			res = ft_strljoin(res, " ", NONE);
-		res = ft_strljoin(res, str[2], BOTH);
-		res = ft_strljoin(res, " ", FIRST);
-		res = ft_strljoin(res, str[1], BOTH);
-		res = ft_strljoin(res, " ", FIRST);
-		res = ft_strljoin(res, str[3], BOTH);
-		free(str[0]);
-		free(str[4]);
-		free(str[5]);
-		free(str);
+		res = ft_lasttime_sub(res, str, 3);
 		return (res);
 	}
-
 	return (res);
 }
 
@@ -108,114 +101,6 @@ char		*ft_group(gid_t st_gid)
 	else
 		id = ft_itoa(st_gid);
 	return (id);
-}
-
-/*
-**	Return the first ACL caracter malloced
-*/
-
-char		*ft_set_type(mode_t st_mode)
-{
-	char	*str;
-
-	str = NULL;
-	if (S_ISDIR(st_mode))
-		str = ft_strjoin(str, "d");
-	else if (S_ISCHR(st_mode))
-		str = ft_strjoin(str, "c");
-	else if (S_ISBLK(st_mode))
-		str = ft_strjoin(str, "b");
-	else if (S_ISFIFO(st_mode))
-		str = ft_strjoin(str, "p");
-	else if (S_ISSOCK(st_mode))
-		str = ft_strjoin(str, "s");
-	else if (S_ISLNK(st_mode))
-		str = ft_strjoin(str, "l");
-	else
-		str = ft_strjoin(str, "-");
-	return (str);
-}
-
-/*
-**	Return a malloced string with the sticky bit on group
-*/
-
-char		*sticky_group(mode_t st_mode, char *str)
-{
-	if (st_mode & S_ISGID) // GRP sSx
-	{
-		if (st_mode & S_IXGRP)
-			str = ft_strljoin(str, "s", FIRST);
-		else
-			str = ft_strljoin(str, "S", FIRST);
-	}
-	else if (st_mode & S_IXGRP)
-		str = ft_strljoin(str, "x", FIRST);
-	else
-		str = ft_strljoin(str, "-", FIRST);
-	return (str);
-}
-
-/*
-**	Return a malloced string with the sticky bit on user
-*/
-
-char		*sticky_user(mode_t st_mode, char *str)
-{
-	if (st_mode & S_ISUID) // USER sSx
-	{
-		if (st_mode & S_IXUSR)
-			str = ft_strljoin(str, "s", FIRST);
-		else
-			str = ft_strljoin(str, "S", FIRST);
-	}
-	else if (st_mode & S_IXUSR)
-		str = ft_strljoin(str, "x", FIRST);
-	else
-		str = ft_strljoin(str, "-", FIRST);
-	return (str);
-}
-
-/*
-**	Return a malloced string with the sticky bit on other
-*/
-
-char		*sticky_other(mode_t st_mode, char *str)
-{
-	if (st_mode & S_ISVTX) // OTHER tTx
-	{
-		if (st_mode & S_IXOTH)
-			str = ft_strljoin(str, "t", FIRST);
-		else
-			str = ft_strljoin(str, "T", FIRST);
-	}
-	else if (st_mode & S_IXOTH)
-		str = ft_strljoin(str, "x", FIRST);
-	else
-		str = ft_strljoin(str, "-", FIRST);
-	return (str);
-}
-
-/*
-**	Return the mallocde ACL
-*/
-
-char		*ft_perm(mode_t st_mode)
-{
-	char	*str;
-
-	str = NULL;
-	str = ft_set_type(st_mode);
-	str = ft_strljoin(str, ((st_mode & S_IRUSR) ? "r" : "-"), FIRST);
-	str = ft_strljoin(str, ((st_mode & S_IWUSR) ? "w" : "-"), FIRST);
-	str = sticky_user(st_mode, str);
-	str = ft_strljoin(str, ((st_mode & S_IRGRP) ? "r" : "-"), FIRST);
-	str = ft_strljoin(str, ((st_mode & S_IWGRP) ? "w" : "-"), FIRST);
-	str = sticky_group(st_mode, str);
-	str = ft_strljoin(str, ((st_mode & S_IROTH) ? "r" : "-"), FIRST);
-	str = ft_strljoin(str, ((st_mode & S_IWOTH) ? "w" : "-"), FIRST);
-	str = sticky_other(st_mode, str);
-	return (str);
 }
 
 /*

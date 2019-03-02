@@ -1,26 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   print3.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/08 20:39:28 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/02 15:43:50 by akeiflin         ###   ########.fr       */
+/*   Created: 2019/03/02 16:42:49 by akeiflin          #+#    #+#             */
+/*   Updated: 2019/03/02 16:43:11 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "ft_ls.h"
 #include "libft.h"
-#include <string.h>
 
-size_t	ft_strlen(const char *s)
+/*
+**	computiong and displaing the count of block on the folder
+*/
+
+void	printblock(t_list *files)
 {
-	size_t	i;
+	int		total;
+	t_l		*file;
 
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	total = 0;
+	while (files)
+	{
+		file = files->content;
+		total += file->block;
+		files = files->next;
+	}
+	ft_putstr("total ");
+	ft_putnbr(total);
+	ft_putchar('\n');
 }

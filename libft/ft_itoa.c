@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 08:43:40 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/23 18:26:52 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/02 15:43:30 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 char	*ft_itoa(long long n)
 {
 	long long		numlen;
-	int		positive;
-	char	*str;
-	long long	num;
+	int				positive;
+	char			*str;
+	long long		num;
 
 	numlen = ft_numlen(n);
 	positive = ft_ispositive(n);

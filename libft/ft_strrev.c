@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/31 17:12:25 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/02/18 18:39:52 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/02 15:44:00 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*ft_strrev(char *str)
 {
 	long long	len;
 	long long	i;
-	char	*res;
+	char		*res;
 
 	if (!str)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/01 08:44:42 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/02 16:57:50 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,56 +14,11 @@
 #include "libft.h"
 #include "ft_ls.h"
 
-/*
-**	For print only files passed in arg
-*/
-
-void	print_arg_files(t_list *files)
+void	print_arg_dir_print(t_l *file)
 {
-	t_l		*file;
-
-	while (files)
-	{
-		file = files->content;
-		if (file->error == 0 && file->type == 0)
-		{
-			file->fullname = 1;
-			ft_print_one(file);
-		}
-		files = files->next;
-	}
-}
-
-/*
-**	Fill a folder and print it for finaly check for another su folder
-*/
-
-void	r_param(t_l *file)
-{
-	fill_dir(file);
-	ft_putchar('\n');
-	ft_putstr(file->name);
-	ft_putendl(":");
 	(check_arg('l') && file->sfiles) ? printblock(file->sfiles) : 0;
 	print_files(file->sfiles);
-	sub_folder_search_r(file->sfiles);
-}
-
-/*
-**	Look for subfolder
-*/
-
-void	sub_folder_search_r(t_list *files)
-{
-	t_l	*file;
-
-	while (files)
-	{
-		file = files->content;
-		if (file->type == 1 && !file->symlinkname && ft_strcmp(parse_name(file->name), ".") != 0 && ft_strcmp(parse_name(file->name), "..") != 0)
-			r_param(file);
-		files = files->next;
-	}
+	(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
 }
 
 /*
@@ -78,9 +33,7 @@ void	print_arg_dir(t_list *files)
 	if (((t_l *)files->content)->type == 1 && ft_lstlen(files) == 1)
 	{
 		file = files->content;
-		(check_arg('l') && file->sfiles) ? printblock(file->sfiles) : 0;
-		print_files(file->sfiles);
-		(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
+		print_arg_dir_print(file);
 		return ;
 	}
 	while (files)
@@ -92,45 +45,10 @@ void	print_arg_dir(t_list *files)
 				ft_putchar('\n');
 			ft_putstr(file->name);
 			ft_putendl(":");
-			(check_arg('l') && file->sfiles) ? printblock(file->sfiles) : 0;
-			print_files(file->sfiles);
-			(check_arg('R')) ? sub_folder_search_r(file->sfiles) : 0;
+			print_arg_dir_print(file);
 		}
 		++i;
 		files = files->next;
-	}
-}
-
-/*
-**	Just print a t_list of file
-*/
-
-void	print_files(t_list *files)
-{
-	t_l		*file;
-
-	while (files)
-	{
-		file = files->content;
-		ft_print_one(file);
-		files = files->next;
-	}
-}
-
-/*
-**	Controleur for -l option
-*/
-
-void	ft_print_one(t_l *file)
-{
-	if (file->error == 0)
-	{
-		if (check_arg('l'))
-			full_file(file);
-		else if (file->fullname == 0)
-			ft_putendl(parse_name(file->name));
-		else if (file->fullname == 1)
-			ft_putendl(file->name);
 	}
 }
 
@@ -142,6 +60,26 @@ void	put_space(int i)
 {
 	while (--i >= 0)
 		ft_putchar(' ');
+}
+
+void	full_file_sub(t_l *file)
+{
+	char	*to_free;
+
+	to_free = ft_lasttime(file->date);
+	ft_putstr(to_free);
+	free(to_free);
+	put_space(1);
+	if (file->fullname == 0)
+		ft_putstr(parse_name(file->name));
+	else
+		ft_putstr(file->name);
+	if (file->symlinkname)
+	{
+		ft_putstr(" -> ");
+		ft_putstr(file->symlinkname);
+	}
+	ft_putchar('\n');
 }
 
 /*
@@ -164,39 +102,5 @@ void	full_file(t_l *file)
 	ft_putstr(file->group);
 	put_space(file->padding[2]);
 	ft_putstr(file->size);
-	to_free = ft_lasttime(file->date);
-	ft_putstr(to_free);
-	free(to_free);
-	put_space(1);
-	if (file->fullname == 0)
-		ft_putstr(parse_name(file->name));
-	else
-		ft_putstr(file->name);
-	if (file->symlinkname)
-	{
-		ft_putstr(" -> ");
-		ft_putstr(file->symlinkname);
-	}
-	ft_putchar('\n');
-}
-
-/*
-**	computiong and displaing the count of block on the folder
-*/
-
-void	printblock(t_list *files)
-{
-	int		total;
-	t_l		*file;
-
-	total = 0;
-	while (files)
-	{
-		file = files->content;
-		total += file->block;
-		files = files->next;
-	}
-	ft_putstr("total ");
-	ft_putnbr(total);
-	ft_putchar('\n');
+	full_file_sub(file);
 }

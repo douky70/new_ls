@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:04:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/01 08:12:41 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/02 16:12:50 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 ** Fill a t_l
 */
 
-void	nff1(t_l *file, char *acl, char *extacl, int symlink)
+void	nff(t_l *file, char *acl, char *extacl, int symlink)
 {
 	file->acl = acl;
 	file->extacl = extacl;
