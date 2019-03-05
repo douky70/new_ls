@@ -1,24 +1,24 @@
 NAME			=	ft_ls
 
 # Sources
-SRC				=	srcs/fill.c \
-					srcs/device.c \
-					srcs/sorting.c srcs/sorting2.c \
-					srcs/arg.c \
-					srcs/error.c \
-					srcs/fill_t_l.c \
-					srcs/ft_ls.c \
+SRC				=	srcs/arg.c srcs/device.c \
+					srcs/error.c srcs/fill.c \
+					srcs/fill_t_l.c srcs/ft_ls.c \
 					srcs/full_fill.c srcs/full_fill2.c \
-					srcs/misc.c \
-					srcs/print.c srcs/print2.c srcs/print3.c
+					srcs/misc.c srcs/print.c \
+					srcs/print2.c srcs/print3.c \
+					srcs/sorting.c srcs/sorting2.c
 
 LIBFT_FOLDER	=	libft
-LIB_FOLDERS		=	-L$(LIBFT_FOLDER)
-LIBS			=	-lft
+LIBFT			=	$(LIBFT_FOLDER)/libft.a
+
 # Compilation
 CXX				=	gcc
-CFLAGS			=	-Wall -Wextra -Werror -O3
+CFLAGS			=	-Wall -Wextra -Werror -Ofast
 INCLUDES		=	-I includes -I $(LIBFT_FOLDER)/includes
+
+# Debug
+DEBUGFLAG		=	-Og -g
 
 # Linking
 OBJ				=	$(SRC:.c=.o)
@@ -27,12 +27,12 @@ OBJ				=	$(SRC:.c=.o)
 GREEN			=	\033[32m
 RESET			=	\033[0m
 
-all: libft $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(LIBFT) $(OBJ)
 	@printf "$(GREEN)[cc]$(RESET): done\n"
 	@printf "$(GREEN)[ld]$(RESET): $(NAME)\n"
-	@$(CXX) -o $(NAME) $(OBJ) $(LIB_FOLDERS) $(LIBS) $(LDFLAGS) $(INCLUDES)
+	@$(CXX) -o $(NAME) $(OBJ) $(INCLUDES) $(LIBFT)
 
 .c.o: $(SRC)
 	@printf "$(GREEN)[cc]$(RESET): $< -> $@\n"
@@ -40,41 +40,52 @@ $(NAME): $(OBJ)
 	@gcc -c $< -o $@ $(INCLUDES) $(CFLAGS)
 	@printf "\e[0K"
 
-run: all
-	@./$(NAME)
+debug: $(LIBFT) $(OBJ)
+	@printf "$(GREEN)[cc]$(RESET): done\n"
+	@printf "$(GREEN)[ld]$(RESET): $(NAME)\n"
+	@$(CXX) -o $(NAME) $(OBJ) $(INCLUDES) $(LIBFT)
 
-libft:
+$(LIBFT):
+	@printf "\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft all\n";
 	@make -C libft
-	@printf "\e[1A\e[0K"
+	@printf "\e[1A\e[1A\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft all done\n";
 
 libft-clean:
+	@printf "\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft clean\n";
 	@make -C $(LIBFT_FOLDER) clean >/dev/null
 	@printf "\e[1A\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft clean done\n";
 
 libft-fclean:
+	@printf "\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft fclean\n";
 	@make -C $(LIBFT_FOLDER) fclean >/dev/null
 	@printf "\e[1A\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft fclean done\n";
 
 libft-re:
+	@printf "\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft re\n";
 	@make -C $(LIBFT_FOLDER) re
 	@printf "\e[1A\e[0K"
 	@printf "$(GREEN)[mk]$(RESET): libft re done\n";
 
 clean: libft-clean
+	@printf "\e[0K"
 	@printf "$(GREEN)[rm]$(RESET): cleaned object files\n"
 	@rm -rf $(OBJ)
 
 fclean: clean libft-fclean
+	@printf "\e[0K"
 	@printf "$(GREEN)[rm]$(RESET): cleaned binary file\n"
 	@rm -rf $(NAME)
 
-re: fclean libft all
+separator:
+	@printf "\n"
 
-.PHONY: all norm libft libft-clean libft-fclean libft-re clean fclean re
+re: fclean separator $(LIBFT) all
+
+.PHONY: separator libft-clean libft-fclean libft-re clean fclean re
