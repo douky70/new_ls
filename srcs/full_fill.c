@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/05 17:42:12 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:18:56 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ char		*ft_lasttime_sub(char *res, char **str, int spe)
 	res = ft_strljoin(res, " ", FIRST);
 	res = ft_strljoin(res, str[1], BOTH);
 	if (ft_strlen(str[2]) == 1)
-		res = ft_strljoin(res, "  ", NONE);
+		res = ft_strljoin(res, "  ", FIRST);
 	else
-		res = ft_strljoin(res, " ", NONE);
+		res = ft_strljoin(res, " ", FIRST);
 	res = ft_strljoin(res, str[2], BOTH);
 	res = ft_strljoin(res, ((spe == 4) ? "  " : " "), FIRST);
 	res = ft_strljoin(res, str[spe], BOTH);
