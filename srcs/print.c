@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 19:32:08 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/02 16:57:50 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:52:40 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	put_space(int i)
 		ft_putchar(' ');
 }
 
-void	full_file_sub(t_l *file)
+void	full_file_norm(t_l *file)
 {
 	char	*to_free;
 
@@ -102,5 +102,5 @@ void	full_file(t_l *file)
 	ft_putstr(file->group);
 	put_space(file->padding[2]);
 	ft_putstr(file->size);
-	full_file_sub(file);
+	full_file_norm(file);
 }

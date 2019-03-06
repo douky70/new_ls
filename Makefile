@@ -7,8 +7,7 @@ SRC				=	srcs/arg.c srcs/device.c \
 					srcs/full_fill.c srcs/full_fill2.c \
 					srcs/misc.c srcs/print.c \
 					srcs/print2.c srcs/print3.c \
-					srcs/sorting.c srcs/sorting2.c \
-					srcs/padding.c
+					srcs/sorting.c srcs/padding.c
 
 LIBFT_FOLDER	=	libft
 LIBFT			=	$(LIBFT_FOLDER)/libft.a
