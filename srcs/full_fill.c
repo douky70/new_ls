@@ -6,7 +6,7 @@
 /*   By: akeiflin <akeiflin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/08 17:58:30 by akeiflin          #+#    #+#             */
-/*   Updated: 2019/03/05 18:18:56 by akeiflin         ###   ########.fr       */
+/*   Updated: 2019/03/06 18:46:03 by akeiflin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include <sys/xattr.h>
 #include "libft.h"
 
-char		*ft_lasttime_sub(char *res, char **str, int spe)
+char		*ft_lasttime_set_str(char *res, char **str, int spe)
 {
 	res = ft_strljoin(res, " ", FIRST);
 	res = ft_strljoin(res, str[1], BOTH);
@@ -57,13 +57,13 @@ char		*ft_lasttime(time_t filetime)
 	if (mytime - filetime > 15724800 || mytime < filetime)
 	{
 		str[4][4] = '\0';
-		res = ft_lasttime_sub(res, str, 4);
+		res = ft_lasttime_set_str(res, str, 4);
 		return (res);
 	}
 	else
 	{
 		str[3][5] = '\0';
-		res = ft_lasttime_sub(res, str, 3);
+		res = ft_lasttime_set_str(res, str, 3);
 		return (res);
 	}
 	return (res);
